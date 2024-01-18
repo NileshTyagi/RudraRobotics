@@ -205,7 +205,7 @@ header :hover{
     margin-bottom: auto;
 }
 .image{
-    background-image: url(/img/store/1.jpg);
+    background-image: url(../img/store/1.jpg);
     height: 90vh;
     width: 75vh;
     background-attachment:fixed ;
@@ -228,7 +228,7 @@ header :hover{
     margin-bottom: auto;
 }
 .image-right{
-    background-image: url(/img/store/1.jpg);
+    background-image: url(../img/store/1.jpg);
     height: 90vh;
     width: 75vh;
     background-attachment:fixed ;
@@ -565,7 +565,7 @@ ul{
         top: 2rem;
         right: 2rem;
         z-index: 99;
-        background: url(/img/icons8-menu-30.png);
+        background: url(../img/icons8-menu-30.png);
         background-repeat: no-repeat;
         border: 0;
     }
