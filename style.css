@@ -1,5 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Peta&family=Poppins:wght@100;300;400;800&display=swap');
 
+/* Preloader Styles */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+.preloader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    border-top: 8px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loader-text {
+    position: absolute;
+    bottom: 30%;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Hide content initially to prevent FOUC */
+.page-content {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.6s ease-in;
+}
+
+.page-content.loaded {
+    visibility: visible;
+    opacity: 1;
+}
+
+
 *, *::before, *::after{
     padding: 0;
     margin: 0;
@@ -457,120 +520,128 @@ ul{
 
 
 
-
-
-@media (max-width: 1100px) {
-    .text h1{
-        font-size: 5.8rem;
-    }
-    .text h2{
-        font-size: 4.7rem;
-    }
+/* Desktop-Only Message Screen */
+.desktop-only-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    z-index: 999999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
 }
 
-@media (max-width: 725px) {
-    .text h1{
-        font-size: 5rem;
-        line-height: 1.1;
-    }
-    .text h2{
-        font-size: 4.1rem;
-        line-height: 1.1;
-    }
-    header nav{
-        padding: 0 1rem;
-    }
-    .logo{
-        width: 75px;
-    }
-    header ul a{
-        font-size: 0.73rem;
-        padding: 0 0.9rem;
-    }
-    .search a{
-        font-size: 0.85rem;
-        padding: 0 1.8rem;
-    }
-    .menu{
-        height: 30px;
-        width: 30px;
-    }
-    .bg{
-        width: initial;
-        height: 319.28%;
-    }
-    .fog{
-        width: initial;
-        height: 296.496%;
+.message-content {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.message-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.message-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: 'Lexend Peta', sans-serif;
+}
+
+.message-subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.message-features {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.message-features li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.message-features i {
+    color: #1abc9c;
+    margin-right: 0.8rem;
+    width: 20px;
+}
+
+.desktop-suggestion {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.desktop-suggestion p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.company-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+/* Show message on mobile/tablet, hide main content */
+@media (max-width: 1023px) {
+    .desktop-only-message {
+        display: flex !important;
     }
     
-    .drone{
-        width: initial;
-        height: 293.296%;
+    .page-content {
+        display: none !important;
     }
     
-    .hand{
-        width: initial;
-        height: 132.048%;
+    .preloader {
+        display: none !important;
     }
-    .footer-col{
-        width: 50%;
-        margin-bottom: 30px;
-    }
-}
-
-@media (max-width: 520px) {
-    .text h1{
-        font-size: 3.3rem;
-    }
-    .text h2{
-        font-size: 2.6rem;
-    }
-    .footer-col{
-        width: 100%;
+    
+    body {
+        overflow: hidden;
     }
 }
 
-@media (max-width: 550px) {
-    .mobile-nav{
-        display: block;
+/* Hide message on desktop, show main content */
+@media (min-width: 1024px) {
+    .desktop-only-message {
+        display: none !important;
     }
-    .navbar{
-        position: fixed;
-        width: 165%;
-        flex-direction: column;
-        top: -5px;
-        height: 101vh;
-        background: rgb(156,153,153);
-        background: linear-gradient(180deg, rgba(156,153,153,1) 0%, rgba(135,184,183,1) 16%, rgba(121,153,191,1) 79%, rgba(117,113,113,1) 100%);
-        text-align: center;
-        padding-top: 8rem;
-        transform: translateX(-25%);
-    }
-    .navbar li{
-        text-align: center;
-        font-size: 30px;
-        height: 20vh;
-    }
-    .navigation{
-        position: fixed;
-        transition: transform 0.02s ease-out;
-    }
-    .navigation[data-visible="false"]{
-        position: fixed;
-        transform: translateX(0%);
-        top: -50px;
-        right: -100px;
-    }
-    .mobile-nav{
-        position: absolute;
-        width: 2rem;
-        aspect-ratio: 1;
-        top: 2rem;
-        right: 2rem;
-        z-index: 99;
-        background: url(/img/icons8-menu-30.png);
-        background-repeat: no-repeat;
-        border: 0;
-    }
+}
+
+
+/* Simple parallax stability fix */
+.parallax {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Ensure proper initial positioning */
+.bg, .fog, .drone, .hand {
+    transform: translate(-50%, -50%);
 }

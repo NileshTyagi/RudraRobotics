@@ -8,6 +8,53 @@
     <link rel="stylesheet" href="store.css">
 </head>
 <body>
+    <!-- Desktop-Only Message Screen -->
+<div class="desktop-only-message">
+    <div class="message-content">
+        <img src="/img/logo.png" alt="Rudra Robotics" class="company-logo">
+        
+        <div class="message-icon">
+            <i class="fas fa-desktop"></i>
+        </div>
+        
+        <h1 class="message-title">RUDRA ROBOTICS</h1>
+        <p class="message-subtitle">Experience our immersive parallax website on a larger screen</p>
+        
+        <ul class="message-features">
+            <li>
+                <i class="fas fa-rocket"></i>
+                <span>Interactive 3D parallax effects</span>
+            </li>
+            <li>
+                <i class="fas fa-cogs"></i>
+                <span>Advanced robotics showcases</span>
+            </li>
+            <li>
+                <i class="fas fa-eye"></i>
+                <span>Optimized visual experience</span>
+            </li>
+            <li>
+                <i class="fas fa-mouse"></i>
+                <span>Enhanced navigation & interactions</span>
+            </li>
+        </ul>
+        
+        <div class="desktop-suggestion">
+            <p><strong>For the best experience:</strong><br>
+            Please visit us on a laptop, desktop computer, or tablet in landscape mode (minimum 1024px width)</p>
+        </div>
+    </div>
+</div>
+
+<!-- Preloader -->
+<div class="preloader">
+    <div class="loader"></div>
+    <div class="loader-text">RUDRA ROBOTICS</div>
+</div>
+
+<div class="page-content">
+
+
     <header class="hide">
         <nav>
             <img src="/img/logo.png" alt="Rudra_Robotics" class="logo">
@@ -49,12 +96,12 @@
     </section>
 
     <section class="store-sec">
-        <div class="parallax-img reveal">
+        <div class="parallax-img">
             <div class="fixed-img">
                 <div class="image"></div>
             </div>
 
-            <div class="drones">
+            <div class="drones reveal">
                 <h1 class="drone-type">Camera Drones</h1>
 
                 <div class="products">
@@ -118,8 +165,8 @@
         </div>
 
 
-        <div class="parallax-img-right reveal">
-            <div class="drones">
+        <div class="parallax-img-right">
+            <div class="drones reveal">
                 <h1 class="drone-type-right">Handheld Drones</h1>
 
                 <div class="products">
@@ -189,12 +236,12 @@
             
         </div>
 
-        <div class="parallax-img reveal">
+        <div class="parallax-img">
             <div class="fixed-img">
                 <div class="image"></div>
             </div>
 
-            <div class="drones">
+            <div class="drones reveal">
                 <h1 class="drone-type">Industry Drones</h1>
 
                 <div class="products">
@@ -236,7 +283,7 @@
 
                     <div class="product-card">
                         <div class="product-tumb">
-                            <a href=""><img src="/img/store/4.jpg" alt=""></a>
+                            <a href=""><img src="../img/store/4.jpg" alt=""></a>
                         </div>
                         <div class="product-details">
                             <span class="product-catagory">Industry Drone</span>
@@ -257,8 +304,8 @@
             </div>
         </div>
 
-        <div class="parallax-img-right reveal">
-            <div class="drones">
+        <div class="parallax-img-right">
+            <div class="drones reveal">
                 <h1 class="drone-type-right">Drone Kits</h1>
 
                 <div class="products">
@@ -377,84 +424,123 @@
     
     
     <script>
+// Enhanced loading and functionality for store page
+let isPageLoaded = false;
 
-         /*BANNER SLIDER*/
-        $(document).ready(function() {
+// Preloader functionality
+window.addEventListener("load", function () {
+    const preloader = document.querySelector(".preloader");
+    const pageContent = document.querySelector(".page-content");
+
+    const images = document.querySelectorAll("img");
+    let loadedImages = 0;
+
+    function imageLoaded() {
+        loadedImages++;
+        if (loadedImages === images.length) {
+            hidePreloader();
+        }
+    }
+
+    function hidePreloader() {
+        setTimeout(() => {
+            preloader.classList.add("fade-out");
+            pageContent.classList.add("loaded");
+
+            setTimeout(() => {
+                preloader.style.display = "none";
+                isPageLoaded = true;
+                
+                // Initialize everything after load
+                initializePage();
+            }, 500);
+        }, 800);
+    }
+
+    if (images.length === 0) {
+        hidePreloader();
+    } else {
+        images.forEach((img) => {
+            if (img.complete) {
+                imageLoaded();
+            } else {
+                img.addEventListener("load", imageLoaded);
+                img.addEventListener("error", imageLoaded);
+            }
+        });
+    }
+});
+
+function initializePage() {
+    // Initialize banner slider
+    initBannerSlider();
+    
+    // Initialize reveal animations
+    initRevealAnimations();
+    
+    // Initialize mobile navigation
+    initMobileNavigation();
+}
+
+// Enhanced Banner Slider
+function initBannerSlider() {
+    if (typeof $ !== 'undefined') {
         var bannerImages = $('.banner_sliderimg .banner_image');
         var currentImageIndex = 0;
-        var intervalTime = 20000; // 10 seconds
+        var intervalTime = 20000;
         
         function showNextImage() {
-            bannerImages.hide(); // Hide all images
-            bannerImages.eq(currentImageIndex).fadeIn(200); // Show the current image
+            if (!isPageLoaded) return;
             
-            currentImageIndex++; // Move to the next image
+            bannerImages.hide();
+            bannerImages.eq(currentImageIndex).fadeIn(200);
+            
+            currentImageIndex++;
             if (currentImageIndex >= bannerImages.length) {
-                currentImageIndex = 0; // Go back to the first image
+                currentImageIndex = 0;
             }
         }
         
-        // Initial image display
         showNextImage();
-        
-        // Start the timer
         var timer = setInterval(showNextImage, intervalTime);
         
-        // Pause the timer when hovering over the banner
         $('.banner_slider').hover(function() {
-            clearInterval(timer); // Stop the timer
+            clearInterval(timer);
         }, function() {
-            timer = setInterval(showNextImage, intervalTime); // Restart the timer
+            timer = setInterval(showNextImage, intervalTime);
         });
         
-        // Previous button click handler
         $('#banner_prevbtn').on('click', function() {
-            bannerImages.hide(); // Hide all images
+            if (!isPageLoaded) return;
             
-            currentImageIndex--; // Move to the previous image
+            bannerImages.hide();
+            currentImageIndex--;
             if (currentImageIndex < 0) {
-                currentImageIndex = bannerImages.length - 1; // Go to the last image
+                currentImageIndex = bannerImages.length - 1;
             }
-            
-            bannerImages.eq(currentImageIndex).fadeIn(200); // Show the current image
-            
-            clearInterval(timer); // Stop the timer
-            timer = setInterval(showNextImage, intervalTime); // Restart the timer
+            bannerImages.eq(currentImageIndex).fadeIn(200);
+            clearInterval(timer);
+            timer = setInterval(showNextImage, intervalTime);
         });
-        
-        // Next button click handler
         
         $('#banner_nextbtn').on('click', function() {
-            showNextImage();
+            if (!isPageLoaded) return;
             
-            clearInterval(timer); // Stop the timer
-            timer = setInterval(showNextImage, intervalTime); // Restart the timer
+            showNextImage();
+            clearInterval(timer);
+            timer = setInterval(showNextImage, intervalTime);
         });
-    });
-    
+    }
+}
 
-
-
-    /*GSAP ANIMATION*/
-    let timeline = gsap.timeline();
-
-    timeline.from(".hide",{
-    opacity: 0,
-    duration: 1.5,
-    }, 
-    "1.5"
-    );
-    
-
-
-    /*REVEAL ELEMENTS ON SCROLL*/
-    window.addEventListener('scroll',reveal);
-    
-    function reveal(){
+// Enhanced reveal animations
+function initRevealAnimations() {
+    function reveal() {
+        if (!isPageLoaded) return;
+        
         var reveals = document.querySelectorAll('.reveal');
         
         for(var i = 0; i < reveals.length; i++){
-            
             var windowheight = window.innerHeight;
             var revealtop = reveals[i].getBoundingClientRect().top;
             var revealpoint = 150;
@@ -464,21 +550,41 @@
             }
         }
     }
+    
+    window.addEventListener('scroll', reveal);
+    reveal(); // Initial check
+}
 
-    /*MENU BUTTON FOR MOBILE*/
+// Enhanced mobile navigation
+function initMobileNavigation() {
     const mobileNavButton = document.querySelector(".mobile-nav");
-const navigate = document.querySelector(".navigation");
+    const navigate = document.querySelector(".navigation");
 
-mobileNavButton.addEventListener('click', () => {
-  const visible = navigate.getAttribute('data-visible');
-  const newVisibility = visible === 'true' ? 'false' : 'true';
-  navigate.setAttribute('data-visible', newVisibility);
+    if (mobileNavButton && navigate) {
+        mobileNavButton.addEventListener('click', () => {
+            if (!isPageLoaded) return;
+            
+            const visible = navigate.getAttribute('data-visible');
+            const newVisibility = visible === 'true' ? 'false' : 'true';
+            navigate.setAttribute('data-visible', newVisibility);
+        });
+    }
+}
 
- 
+// GSAP Animation (delayed until page is ready)
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (isPageLoaded && typeof gsap !== 'undefined') {
+            let timeline = gsap.timeline();
+            timeline.from(".hide", {
+                opacity: 0,
+                duration: 1.5,
+            }, "1.5");
+        }
+    }, 1000);
 });
+</script>
 
-
-    </script>
 
 
 </body>

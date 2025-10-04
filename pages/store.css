@@ -208,7 +208,7 @@ header :hover{
     background-image: url(/img/store/1.jpg);
     height: 90vh;
     width: 75vh;
-    background-attachment:fixed ;
+    background-attachment: fixed;
     background-position-y: center;
     background-repeat: no-repeat;
     background-position: left;
@@ -231,7 +231,7 @@ header :hover{
     background-image: url(/img/store/1.jpg);
     height: 90vh;
     width: 75vh;
-    background-attachment:fixed ;
+    background-attachment:fixed;
     background-position-y: center;
     background-repeat: no-repeat;
     background-position: right;
@@ -569,4 +569,222 @@ ul{
         background-repeat: no-repeat;
         border: 0;
     }
+}
+
+/* Preloader Styles */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out;
+}
+
+.preloader.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loader {
+    width: 80px;
+    height: 80px;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    border-top: 8px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loader-text {
+    position: absolute;
+    bottom: 30%;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Hide content initially to prevent FOUC */
+.page-content {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.6s ease-in;
+}
+
+.page-content.loaded {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Desktop-Only Message Screen */
+.desktop-only-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    z-index: 999999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.message-content {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.message-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.message-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: 'Lexend Peta', sans-serif;
+}
+
+.message-subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.message-features {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.message-features li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.message-features i {
+    color: #1abc9c;
+    margin-right: 0.8rem;
+    width: 20px;
+}
+
+.desktop-suggestion {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.desktop-suggestion p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.company-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+/* Show message on mobile/tablet, hide main content */
+@media (max-width: 1023px) {
+    .desktop-only-message {
+        display: flex !important;
+    }
+    
+    .page-content {
+        display: none !important;
+    }
+    
+    .preloader {
+        display: none !important;
+    }
+    
+    body {
+        overflow: hidden;
+    }
+}
+
+/* Hide message on desktop, show main content */
+@media (min-width: 1024px) {
+    .desktop-only-message {
+        display: none !important;
+    }
+}
+
+/* Fixed Product Card Hover Issue */
+.product-card {
+    width: 30%;
+    position: relative;
+    box-shadow: 0 2px 7px #c4c2c2;
+    background: linear-gradient(to right, #8c777735, #5dbbcc3a);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease-in-out;
+    overflow: hidden; /* Prevent content from spilling out */
+}
+
+.product-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 8px #24262b;
+}
+
+/* Ensure image stays in place during card hover */
+.product-tumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-tumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-bottom: -2%;
+    transition: none; /* Remove any transition that might cause movement */
+    transform: none; /* Ensure no transform inheritance */
+}
+
+/* Prevent any inherited transforms on product details */
+.product-details {
+    padding: 1rem;
+    position: relative;
+    transform: none;
 }
